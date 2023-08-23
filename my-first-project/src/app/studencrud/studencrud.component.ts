@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-studencrud',
   templateUrl: './studencrud.component.html',
   styleUrls: ['./studencrud.component.scss']
 })
-export class StudencrudComponent {
+export class StudencrudComponent implements OnInit {
 
   StudentArray : any[] = [];
   isResultLoaded = false;
@@ -27,7 +27,7 @@ export class StudencrudComponent {
 
   getAllStudent()
   { 
-    this.http.get("http://localhost:8085/api/student/")
+    this.http.get("http://localhost:8085/api/student")
     .subscribe((resultData: any)=>
     {
         this.isResultLoaded = true;
@@ -50,7 +50,7 @@ export class StudencrudComponent {
       "fee" : this.fee,
     };
 
-    this.http.post("http://localhost:8085/api/student/add",bodyData).subscribe((resultData: any)=>
+    this.http.post("http://localhost:8085/api/student",bodyData).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Employee Registered Successfully")
@@ -81,7 +81,7 @@ export class StudencrudComponent {
       "fee" : this.fee
     };
     
-    this.http.put("http://localhost:8085/api/student/update"+ "/"+ this.currentStudentID,bodyData).subscribe((resultData: any)=>
+    this.http.put("http://localhost:8085/api/student"+ "/"+ this.currentStudentID,bodyData).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Student Registered Updateddd")
@@ -106,11 +106,31 @@ export class StudencrudComponent {
 
   setDelete(data: any)
   {
-    this.http.delete("http://localhost:8085/api/student/delete"+ "/"+ data.id).subscribe((resultData: any)=>
+    this.http.delete("http://localhost:8085/api/student"+ "/"+ data.id).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Student Deletedddd")
         this.getAllStudent();
     });
   }
+  // searchData(event) {
+  //   this.search = event.target.value
+  //   console.log(this.search)
+  //   console.log(this.filter)
+  //   this.empService.searchData(this.search).subscribe((res) => {
+  //     console.log("Filter Response", res);
+  //     if (res) {
+  //       this.employees = res
+  //       if (res.length === 0) {
+  //         this.noData = true
+  //       } else {
+  //         this.noData = false
+  //       }
+  //     }
+  //   },
+  //     (err) => {
+  //       console.log(err);
+  //       console.log("error")
+  //     })
+  // }
 }

@@ -4,6 +4,9 @@ const mysql = require('mysql');
 const server = express();
 server.use(bodyParser.json());
 
+const cors = require('cors');
+server.use(cors());
+
 //Establish the database connection
 
 const db = mysql.createConnection({
